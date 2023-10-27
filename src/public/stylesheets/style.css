@@ -1,0 +1,24 @@
+body {
+  height: 100vh;
+  /*background-image: url('/public/images/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;*/
+}
+
+.customColor-red{
+  color: #ee5f5b;
+}
+
+.customColor-yellow{
+  color: #f89406;
+}
+
+
+.tabulator-paginator button{
+  color: white !important;
+}
+
+a{
+  text-decoration:none;
+}
