@@ -1,39 +1,23 @@
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcryptjs');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-// Load Pracownik model
-const Pracownik = require('../../models/Pracownik.js');
+const {Pracownik, PracownikSchema} = require('../../models/Pracownik');
 
-module.exports = (passport) => {
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
+};
+
+module.exports = passport => {
   passport.use(
-    new LocalStrategy({ usernameField: 'login', passwordField: 'password' },(login, password, done) => {
-      Pracownik.findOne({
-        login: login
-      }).then(user => {
-        if (!user) {
-          return done(null, false, { message: 'Nieprawidłowy login' });
-        }
+    new JwtStrategy(opts, async (jwt_payload, done) => {
+      const user = await Pracownik.findById(jwt_payload.id);
 
-        // Match password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-          if (err) throw err;
-          if (isMatch) {
-            return done(null, user);
-          } else {
-            return done(null, false, { message: 'Hasło nieprawidłowe' });
-          }
-        });
-      });
+      if (user) {
+        return done(null, user);
+      }
+
+      return done(null, false);
     })
   );
-
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser((id, done) => {
-    Pracownik.findById(id, (err, user) => {
-      done(err, user);
-    });
-  });
 };

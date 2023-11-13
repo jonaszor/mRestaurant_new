@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const expressLayouts = require('express-ejs-layouts');
 
+const authController = require('./src/controllers/api/auth.controller');
+
 /**
  * Create Express.js app
  */
@@ -28,6 +30,9 @@ app.use(cookieParser());
 console.log(path.join(__dirname, 'src/public'))
 app.use('/public', express.static(path.join(__dirname, 'src/public')));
 
+app.use(passport.initialize());
+//app.use(passport.session());
+require('./src/config/passport/local.js')(passport);
 
 /**
  * Database connection
@@ -54,6 +59,8 @@ const apiRouter = require('./src/routes/api.router.js');
 
 
 app.use('/api', apiRouter);
+app.use('/login', authController.LOGIN)
+app.use('/register', authController.REGISTER)
 
 
 /**
@@ -73,7 +80,7 @@ app.use((err, req, res, next) => {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('errors/error');
+    res.json(err);
 });
 
 module.exports = app;
