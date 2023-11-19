@@ -1,10 +1,5 @@
 name: ApiGatewayPipeline
-on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - "./"
+on: push
 
 jobs:
   build:
