@@ -2,11 +2,21 @@ const {Straty, StratySchema} = require('../../models/Straty.js');
 
 module.exports = {
     GET: async (req, res, next) => {
-        res.json(await Straty.find())
+        res.json(await Straty.find().populate('Produkty').populate('polProdukty').populate({
+            path : 'Produkty',
+            populate : {
+              path : 'polProdukty'
+            }
+          }))
         //res.render('account/login', { });
     },
     GET_SINGLE: async (req, res, next) => {
-        res.json(await Straty.findById(req.params.param1))
+        res.json(await Straty.findById(req.params.param1).populate('polProdukty').populate('Produkty').populate({
+            path : 'Produkty',
+            populate : {
+              path : 'polProdukty'
+            }
+          }))
         //res.render('account/login', { });
     },
     POST: async (req, res, next) => {

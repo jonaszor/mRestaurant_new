@@ -2,11 +2,11 @@ const {Inwentarz, InwentarzSchema} = require('../../models/Inwentarz.js');
 
 module.exports = {
     GET: async (req, res, next) => {
-        res.json(await Inwentarz.find())
+        res.json(await Inwentarz.find().populate('polProdukty'))
         //res.render('account/login', { });
     },
     GET_SINGLE: async (req, res, next) => {
-        res.json(await Inwentarz.findById(req.params.param1))
+        res.json(await Inwentarz.findById(req.params.param1).populate('polProdukty'))
         //res.render('account/login', { });
     },
     POST: async (req, res, next) => {
