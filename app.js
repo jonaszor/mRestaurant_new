@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const expressLayouts = require('express-ejs-layouts');
+const cors = require('cors');
 
 const authController = require('./src/controllers/api/auth.controller');
 
@@ -16,6 +17,8 @@ const authController = require('./src/controllers/api/auth.controller');
  * Create Express.js app
  */
 const app = express();
+
+
 
 
 /**
@@ -33,6 +36,9 @@ app.use('/public', express.static(path.join(__dirname, 'src/public')));
 app.use(passport.initialize());
 //app.use(passport.session());
 require('./src/config/passport/local.js')(passport);
+
+//CORS
+app.use(cors());
 
 /**
  * Database connection
@@ -70,6 +76,8 @@ app.use('/register', authController.REGISTER)
 app.use((req, res, next) => {
     next(createError(404));
 });
+
+
 
 app.use((err, req, res, next) => {
     // set locals, only providing error in development
