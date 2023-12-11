@@ -5,7 +5,7 @@ module.exports = {
         res.json(await Dostawa.find().populate('polProdukty'))
     },
     GET_SINGLE: async (req, res, next) => {
-        res.json(await Dostawa.findById(req.params.param1))
+        res.json(await Dostawa.findById(req.params.param1).populate('polProdukty'))
     },
     POST: async (req, res, next) => {
         try{
