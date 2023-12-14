@@ -105,7 +105,7 @@ router.delete('/straty/:param1', passport.authenticate('jwt', { session: false }
 /**
  * Stats
  */
-router.get('/statystki', statystkiController.GET)
-router.get('/statystki/:param1', statystkiController.GET_SINGLE)
+router.get('/statystki', passport.authenticate('jwt', { session: false }), statystkiController.GET)
+router.get('/statystki/:param1', passport.authenticate('jwt', { session: false }), statystkiController.GET_SINGLE)
 
 module.exports = router;
