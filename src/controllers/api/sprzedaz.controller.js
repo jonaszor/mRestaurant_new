@@ -2,11 +2,11 @@ const {Sprzedaz, SprzedazSchema} = require('../../models/Sprzedaz.js');
 
 module.exports = {
     GET: async (req, res, next) => {
-        res.json(await Sprzedaz.find().sort({name: 'desc'}))
+        res.json(await Sprzedaz.find().populate('Produkty').sort({name: 'desc'}))
         //res.render('account/login', { });
     },
     GET_SINGLE: async (req, res, next) => {
-        res.json(await Sprzedaz.findById(req.params.param1))
+        res.json(await Sprzedaz.findById(req.params.param1).populate('Produkty'))
         //res.render('account/login', { });
     },
     POST: async (req, res, next) => {
