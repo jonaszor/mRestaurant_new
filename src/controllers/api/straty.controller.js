@@ -7,7 +7,7 @@ module.exports = {
             populate : {
               path : 'polProdukty'
             }
-          }))
+          }).sort({name: 'desc'}))
         //res.render('account/login', { });
     },
     GET_SINGLE: async (req, res, next) => {

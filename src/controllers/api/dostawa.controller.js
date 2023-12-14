@@ -2,7 +2,7 @@ const {Dostawa, DostawaSchema} = require('../../models/Dostawa.js');
 
 module.exports = {
     GET: async (req, res, next) => {
-        res.json(await Dostawa.find().populate('polProdukty'))
+        res.json(await Dostawa.find().populate('polProdukty').sort({name: 'desc'}))
     },
     GET_SINGLE: async (req, res, next) => {
         res.json(await Dostawa.findById(req.params.param1).populate('polProdukty'))

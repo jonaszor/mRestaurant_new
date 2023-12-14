@@ -2,11 +2,11 @@ const {Dzien, DzienSchema} = require('../../models/Dzien.js');
 
 module.exports = {
     GET: async (req, res, next) => {
-        res.json(await Dzien.find())
+        res.json(await Dzien.find().sort('name').populate('polProdukty').sort({name: 'desc'}))
         //res.render('account/login', { });
     },
     GET_SINGLE: async (req, res, next) => {
-        res.json(await Dzien.findById(req.params.param1))
+        res.json(await Dzien.findById(req.params.param1).populate('polProdukty'))
         //res.render('account/login', { });
     },
     POST: async (req, res, next) => {

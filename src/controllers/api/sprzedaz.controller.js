@@ -2,7 +2,7 @@ const {Sprzedaz, SprzedazSchema} = require('../../models/Sprzedaz.js');
 
 module.exports = {
     GET: async (req, res, next) => {
-        res.json(await Sprzedaz.find())
+        res.json(await Sprzedaz.find().sort({name: 'desc'}))
         //res.render('account/login', { });
     },
     GET_SINGLE: async (req, res, next) => {

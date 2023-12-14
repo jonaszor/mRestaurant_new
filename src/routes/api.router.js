@@ -11,6 +11,7 @@ const pracownikController = require('../controllers/api/pracownik.controller');
 const produktController = require('../controllers/api/produkt.controller');
 const sprzedazController = require('../controllers/api/sprzedaz.controller');
 const stratyController = require('../controllers/api/straty.controller');
+const statystkiController = require('../controllers/api/statystyki.controller');
 
 const authMiddleware = require('../config/passport/auth');
 
@@ -101,6 +102,10 @@ router.post('/straty', passport.authenticate('jwt', { session: false }), authMid
 router.put('/straty/:param1', passport.authenticate('jwt', { session: false }), authMiddleware.ensureIsKR, stratyController.PUT)
 router.delete('/straty/:param1', passport.authenticate('jwt', { session: false }), authMiddleware.ensureIsKR, stratyController.DELETE)
 
-
+/**
+ * Stats
+ */
+router.get('/statystki', statystkiController.GET)
+router.get('/statystki/:param1', statystkiController.GET_SINGLE)
 
 module.exports = router;
